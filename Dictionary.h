@@ -66,6 +66,7 @@ public:
 
 	const Dictionary<TKey, TValue>& operator=(const Dictionary<TKey, TValue> other);
 
+	TValue operator[](const TKey key);
 
 private:
 
@@ -147,4 +148,10 @@ template<typename TKey, typename TValue>
 inline const Dictionary<TKey, TValue>& Dictionary<TKey, TValue>::operator=(const Dictionary<TKey, TValue> other)
 {
 	// TODO: insert return statement here
+}
+
+template<typename TKey, typename TValue>
+inline TValue Dictionary<TKey, TValue>::operator[](const TKey key)
+{
+	return TValue();
 }
