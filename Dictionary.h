@@ -33,7 +33,7 @@ public:
 	/// </summary>
 	/// <param name="key"></param>
 	/// <param name="value"></param>
-	void addItem(const TKey& key, const TValue& value)const;
+	void addItem(const TKey& key, const TValue& value);
 
 	/// <summary>
 	/// Tries to find the item that matches the given key
@@ -158,7 +158,7 @@ inline bool Dictionary<TKey, TValue>::tryGetValue(const TKey key, TValue& value)
 }
 
 template<typename TKey, typename TValue>
-inline void Dictionary<TKey, TValue>::addItem(const TKey& key, const TValue& value) const
+inline void Dictionary<TKey, TValue>::addItem(const TKey& key, const TValue& value)
 {
 	Item* temp = new Item[getCount() + 1];
 
@@ -173,14 +173,32 @@ inline void Dictionary<TKey, TValue>::addItem(const TKey& key, const TValue& val
 	temp[getCount()].itemKey = key;
 	temp[getCount()].itemValue = value;
 
-	m_items == temp;
-	getCount();
+	m_items = temp;
+	m_count++;
 }
 
 template<typename TKey, typename TValue>
 inline bool Dictionary<TKey, TValue>::remove(const TKey key)
 {
-	return false;
+	Item* temp = new Item[getCount() - 1];
+	int j = 0;
+	bool itemIsRemoved = false;
+
+	for (int i = 0; i < getCount(); i++)
+	{
+		if (m_items[i].itemKey != key)
+		{
+			temp[j] = m_items[i];
+			j++;
+		}
+		else
+			itemIsRemoved = true;	
+	}
+
+	m_items = temp;
+	m_count--;
+
+	return itemIsRemoved;
 }
 
 template<typename TKey, typename TValue>
