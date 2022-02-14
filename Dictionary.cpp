@@ -7,15 +7,16 @@ int main()
 	
 
 	inv.addItem('a', 3);
+	inv.addItem('a', 3);
 	inv.addItem('d', 5);
 	inv.addItem('q', 10);
 
 	int x = 10;
-	inv.remove(5);
+	inv.remove('d');
 	inv.remove('q', x);
 
 	if (inv.containsTValue(3))
-		std::cout << inv.containsKey('a');
+		std::cout << inv['a'];
 
 	std::cout << std::endl;
 
