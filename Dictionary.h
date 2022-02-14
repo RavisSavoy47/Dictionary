@@ -64,7 +64,7 @@ public:
 	/// <returns></returns>
 	int getCount()const;
 
-	const Dictionary<TKey, TValue>& operator=(Dictionary<TKey, TValue> other);
+	const Dictionary<TKey, TValue>& operator=(const Dictionary<TKey, TValue> other);
 
 	TValue operator[](const TKey key);
 
@@ -256,7 +256,7 @@ inline bool Dictionary<TKey, TValue>::remove(const TKey key, TValue& value)
 }
 
 template<typename TKey, typename TValue>
-inline const Dictionary<TKey, TValue>& Dictionary<TKey, TValue>::operator=(Dictionary<TKey, TValue> other)
+inline const Dictionary<TKey, TValue>& Dictionary<TKey, TValue>::operator=(const Dictionary<TKey, TValue> other)
 {
 	//iterates through the items
 	for (int i = 0; i < other.getCount(); i++)
