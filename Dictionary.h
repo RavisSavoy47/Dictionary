@@ -163,8 +163,7 @@ template<typename TKey, typename TValue>
 inline void Dictionary<TKey, TValue>::addItem(const TKey& key, const TValue& value)
 {
 	// If there are no items in the list...
-	if (getCount() <= 0)
-		// ...return false.
+	if (containsKey(key))
 		return;
 
 	Item* temp = new Item[getCount() + 1];
