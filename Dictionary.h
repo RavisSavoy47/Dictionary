@@ -64,7 +64,7 @@ public:
 	/// <returns></returns>
 	int getCount()const;
 
-	const Dictionary<TKey, TValue>& operator=(const Dictionary<TKey, TValue> other);
+	Dictionary<TKey, TValue>& operator=(const Dictionary<TKey, TValue> other)const;
 
 	TValue operator[](const TKey key);
 
@@ -91,7 +91,7 @@ inline Dictionary<TKey, TValue>::Dictionary(const Dictionary<TKey, TValue>& othe
 template<typename TKey, typename TValue>
 inline Dictionary<TKey, TValue>::~Dictionary()
 {
-	
+	clear();
 }
 
 template<typename TKey, typename TValue>
@@ -103,11 +103,13 @@ inline int Dictionary<TKey, TValue>::getCount() const
 template<typename TKey, typename TValue>
 inline void Dictionary<TKey, TValue>::clear()
 {
+	//iterates though the items
 	for (int i = 0; i < getCount(); i++)
 	{
-
+		//removes the items key and value
+		remove(m_items->itemKey, m_items->itemValue);
 	}
-
+	//resets the count
 	m_count = 0;
 }
 
@@ -199,18 +201,44 @@ inline bool Dictionary<TKey, TValue>::remove(const TKey key)
 	m_count--;
 
 	return itemIsRemoved;
-}
+}                  
 
 template<typename TKey, typename TValue>
 inline bool Dictionary<TKey, TValue>::remove(const TKey key, TValue& value)
 {
-	return false;
+	Item* temp = new Item[getCount() - 1];
+	int j = 0;
+	bool itemIsRemoved = false;
+
+	for (int i = 0; i < getCount(); i++)
+	{
+		if (m_items[i].itemKey != key)
+		{
+			temp[j] = m_items[i];
+			j++;
+		}
+		else
+		{
+			itemIsRemoved = true;
+			m_items->itemKey = value;
+		}
+	}
+
+	m_items = temp;
+	m_count--;
+
+	return itemIsRemoved;
 }
 
 template<typename TKey, typename TValue>
-inline const Dictionary<TKey, TValue>& Dictionary<TKey, TValue>::operator=(const Dictionary<TKey, TValue> other)
+inline Dictionary<TKey, TValue>& Dictionary<TKey, TValue>::operator=(const Dictionary<TKey, TValue> other) const
 {
-	// TODO: insert return statement here
+	for (int i = 0; i < other.m_count; i++)
+		m_items[i] = other.m_items[i];
+
+	m_count = other.m_count;
+
+	return this;
 }
 
 template<typename TKey, typename TValue>
