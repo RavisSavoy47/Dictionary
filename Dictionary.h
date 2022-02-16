@@ -64,8 +64,18 @@ public:
 	/// <returns></returns>
 	int getCount()const;
 
+	/// <summary>
+	/// Sets the values from an old dictionary to be equal to the new dictionary.
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
 	const Dictionary<TKey, TValue>& operator=(const Dictionary<TKey, TValue> other);
 
+	/// <summary>
+	/// Checks if the item has a key if so then give the value.
+	/// </summary>
+	/// <param name="key"></param>
+	/// <returns></returns>
 	TValue operator[](const TKey key);
 
 private:
@@ -166,17 +176,22 @@ inline void Dictionary<TKey, TValue>::addItem(const TKey& key, const TValue& val
 	if (containsKey(key))
 		return;
 
+	//create a temp array
 	Item* temp = new Item[getCount() + 1];
 
+	//iterates through the items
 	for (int i = 0; i < getCount(); i++)
 	{
+		//if the item key is equal to the key
 		if (m_items[i].itemKey == key)
 			return;
-
+		//makes the temp array equal to the items
 		temp[i] = m_items[i];
 	}
 
+	//sets the item key to the key
 	temp[getCount()].itemKey = key;
+	//sets the item value to the value
 	temp[getCount()].itemValue = value;
 
 	m_items = temp;
@@ -186,14 +201,13 @@ inline void Dictionary<TKey, TValue>::addItem(const TKey& key, const TValue& val
 template<typename TKey, typename TValue>
 inline bool Dictionary<TKey, TValue>::remove(const TKey key)
 {
-	// If there are no items in the list...
-	if (getCount() <= 0)
+	// If there are no item keys in the list...
+	if (!containsKey(key))
 		// ...return false.
 		return false;
 
 	//creates a temp array
 	Item* temp = new Item[getCount() - 1];
-	int j = 0;
 	bool itemIsRemoved = false;
 
 	//iterates through the items
@@ -203,13 +217,12 @@ inline bool Dictionary<TKey, TValue>::remove(const TKey key)
 		if (m_items[i].itemKey != key)
 		{
 			//makes the temp array equal to the items
-			temp[j] = m_items[i];
-			j++;
+			temp[i] = m_items[i];
 		}
 		else
 			itemIsRemoved = true;	
 	}
-
+	delete m_items;
 	//set the items to be the temp items
 	m_items = temp;
 	m_count--;
@@ -221,13 +234,12 @@ template<typename TKey, typename TValue>
 inline bool Dictionary<TKey, TValue>::remove(const TKey key, TValue& value)
 {
 	// If there are no items in the list...
-	if (getCount() <= 0)
+	if (!containsKey(key))
 		// ...return false.
 		return false;
 
 	//creates a temp array of items 
 	Item* temp = new Item[getCount() - 1];
-	int j = 0;
 	bool itemIsRemoved = false;
 
 	//iterates through the items
@@ -237,13 +249,12 @@ inline bool Dictionary<TKey, TValue>::remove(const TKey key, TValue& value)
 		if (m_items[i].itemKey != key)
 		{
 			//makes the temp array equal to the items
-			temp[j] = m_items[i];
-			j++;
+			temp[i] = m_items[i];
 		}
 		else
 		{
 			//sets value to be the items key if the item is removed
-			value = m_items->itemKey;
+			value = m_items[i].itemValue;
 			itemIsRemoved = true;
 		}
 	}

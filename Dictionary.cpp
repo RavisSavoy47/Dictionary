@@ -6,32 +6,32 @@ int main()
 	Dictionary<char, int> inv = Dictionary<char, int>();
 	
 
-	inv.addItem('a', 3);
-	inv.addItem('a', 3);
-	inv.addItem('d', 5);
-	inv.addItem('q', 10);
+	inv.addItem(1, 3);
+	inv.addItem(1, 3);
+	inv.addItem(2, 5);
+	inv.addItem(3, 7);
+	inv.addItem(4, 9);
 
-	int x = 10;
-	inv.remove('d');
-	inv.remove('q', x);
+	int value;
+	inv.remove(3, value);
+	std::cout << value << std::endl;
 
-	if (inv.containsTValue(3))
-		std::cout << inv['a'];
+	inv.remove(4);
+	std::cout << inv[4];
 
 	std::cout << std::endl;
 
-	if (inv.containsTValue(10))
-		std::cout << inv.containsKey('d');
+	if (inv.containsTValue(3))
+		std::cout << inv[1];
 
 	std::cout << std::endl;
 
 	if(inv.containsTValue(5))
-		std::cout << inv.containsKey('q');
+		std::cout << inv[2];
 
 	std::cout << std::endl;
 
-	int y = inv['a'];
-
+	int y = inv[1];
 	std::cout << y;
 
 	std::cout << std::endl;
