@@ -1,5 +1,7 @@
 ## Dictionary
 
+This project is to demonstrate the understanding of how to use a collection of items that has an unique key and stores their own value.
+
 The solution in steps
 - add the item of key 1 twice 
 - remove the item with the key of 3
