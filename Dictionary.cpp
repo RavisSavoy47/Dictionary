@@ -42,5 +42,6 @@ int main()
 
 	std::cout << stor.getCount();
 
-
+	std::cout << std::endl;
+	system("pause");
 }
