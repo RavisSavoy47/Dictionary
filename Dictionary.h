@@ -208,10 +208,9 @@ inline bool Dictionary<TKey, TValue>::remove(const TKey key)
 
 	//creates a temp array
 	Item* temp = new Item[getCount() - 1];
-	bool itemIsRemoved = false;
 
 	//iterates through the items
-	for (int i = 0; i < getCount(); i++)
+	for (int i = 0; i < getCount() - 1; i++)
 	{
 		//if the item key is not a key
 		if (m_items[i].itemKey != key)
@@ -219,15 +218,13 @@ inline bool Dictionary<TKey, TValue>::remove(const TKey key)
 			//makes the temp array equal to the items
 			temp[i] = m_items[i];
 		}
-		else
-			itemIsRemoved = true;	
 	}
 	delete m_items;
 	//set the items to be the temp items
 	m_items = temp;
 	m_count--;
 
-	return itemIsRemoved;
+	return true;
 }                  
 
 template<typename TKey, typename TValue>
