@@ -101,7 +101,8 @@ inline Dictionary<TKey, TValue>::Dictionary(const Dictionary<TKey, TValue>& othe
 template<typename TKey, typename TValue>
 inline Dictionary<TKey, TValue>::~Dictionary()
 {
-	clear();
+	m_items = nullptr;
+	m_count = 0;
 }
 
 template<typename TKey, typename TValue>
@@ -115,6 +116,7 @@ inline void Dictionary<TKey, TValue>::clear()
 {
 	//Deletes the items to clear the dictionary
 	delete m_items;
+	m_items = nullptr;
 	m_count = 0;
 }
 
@@ -259,6 +261,8 @@ inline bool Dictionary<TKey, TValue>::remove(const TKey key, TValue& value)
 template<typename TKey, typename TValue>
 inline const Dictionary<TKey, TValue>& Dictionary<TKey, TValue>::operator=(const Dictionary<TKey, TValue> other)
 {
+	// Clears the list to add the new elements into it.
+	clear();
 
 	//iterates through the items
 	for (int i = 0; i < other.getCount(); i++)
